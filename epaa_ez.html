@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎀 Happy Birthday Epa 🎀</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #ffd6ec, #ffc2e2, #ffe6f4);
+        font-family: "Comic Sans MS", cursive;
+        color: #ff4da6;
+        text-align: center;
+        overflow-x: hidden;
+      }
+
+      h1 {
+        margin-top: 40px;
+        font-size: 2.5em;
+        color: #ff2e93;
+        animation: glow 1.5s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px #fff, 0 0 10px #ffb6c1;
+        }
+        to {
+          text-shadow: 0 0 15px #ff66b2, 0 0 25px #ff99cc;
+        }
+      }
+
+      #gameArea {
+        margin-top: 40px;
+      }
+
+      .btn {
+        background-color: #ff7fbf;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        margin: 10px;
+        border-radius: 20px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 6px rgba(255, 105, 180, 0.3);
+      }
+
+      .btn:hover {
+        background-color: #ff4da6;
+        transform: scale(1.05);
+      }
+
+      #message {
+        font-size: 1.3em;
+        margin-top: 20px;
+        color: #d63384;
+      }
+
+      .explosion {
+        font-size: 2em;
+        animation: boom 0.4s ease-in-out;
+      }
+
+      @keyframes boom {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+
+      #popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 192, 203, 0.95);
+        color: #ff1a8c;
+        font-size: 1.2em;
+        padding: 40px;
+        border-radius: 20px;
+        animation: fadeIn 1s ease-in-out;
+        overflow-y: auto;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      #popup h2 {
+        font-size: 2.5em;
+        color: #ff1493;
+        margin-bottom: 20px;
+      }
+
+      #popup p {
+        line-height: 1.6;
+        margin: 10px 0;
+      }
+
+      .heart {
+        position: absolute;
+        color: #ff66b2;
+        font-size: 24px;
+        animation: float 4s linear infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-800px) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2em;
+        }
+        .btn {
+          padding: 12px 20px;
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎀 Tebak Tombol Hadiah buat Epaaa 🎀</h1>
+    <p>pencet aja tombol yang kamu kira berisi kejutan 🎁 (awas, bisa meledak 💥)</p>
+
+    <div id="gameArea"></div>
+    <div id="message"></div>
+
+    <div id="popup">
+      <h2>🎉 Happy Birthday Epa! 💖</h2>
+      <p>
+        Hii Epaaa~ 🌸<br />
+        Selamat ulang tahun yaa epaaaa.semoga tercapai cita citanya,sukes terus yaa,smngt,dan jangan ngeluh,kalo skit istirahat ya jangan dipaksain
+         💕<br />
+         Sehat selalu ya kamu dan mhanda yaa aamiin,jaga pola makannya,jangan nunda nunda makannya yaa,kurangin kopienya
+         <br />
+        semoga bisa jadi pribadi yang lebih baik lagii kedepannya,doa yang terbaik for u. <br>
+        <br></br>
+        <strong>Fadil </strong>
+      </p>
+    </div>
+
+    <script>
+      const gameArea = document.getElementById("gameArea");
+      const message = document.getElementById("message");
+      const popup = document.getElementById("popup");
+
+      let totalButtons = 9;
+      let correctButton = Math.floor(Math.random() * totalButtons);
+
+      // Buat tombol-tombol
+      for (let i = 0; i < totalButtons; i++) {
+        let btn = document.createElement("button");
+        btn.classList.add("btn");
+        btn.innerText = "🎀 Klik Aku 🎀";
+        btn.onclick = () => checkAnswer(i);
+        gameArea.appendChild(btn);
+      }
+
+      function checkAnswer(index) {
+        if (index === correctButton) {
+          message.innerHTML = "";
+          startHeartGame(); // Lanjut ke game ke-2
+          gameArea.innerHTML = "";
+        } else {
+          let boom = document.createElement("div");
+          boom.classList.add("explosion");
+          boom.innerText = "💥 DUARRR 💥";
+          message.innerHTML = "";
+          message.appendChild(boom);
+          setTimeout(() => {
+            message.innerHTML = "";
+          }, 800);
+        }
+      }
+
+      // Game Kedua — Kejar-kejaran Hati 💞
+      function startHeartGame() {
+        message.innerHTML =
+          "<h2>💞 Game 2 — Kejar-kejaran Hati 💞</h2><p>Klik semua 3 hati sebelum kabur! 😆</p>";
+        let heartsClicked = 0;
+
+        for (let i = 0; i < 3; i++) {
+          let heart = document.createElement("div");
+          heart.innerHTML = "💖";
+          heart.style.fontSize = "40px";
+          heart.style.position = "absolute";
+          heart.style.left = 30 + Math.random() * 40 + "%";
+          heart.style.top = 40 + Math.random() * 30 + "%";
+          heart.style.transition = "all 0.6s ease";
+          heart.style.cursor = "pointer";
+          document.body.appendChild(heart);
+
+          // Hati bergerak pelan tiap 1 detik
+          const move = setInterval(() => {
+            heart.style.left = 30 + Math.random() * 40 + "%";
+            heart.style.top = 40 + Math.random() * 30 + "%";
+          }, 1000);
+
+          heart.addEventListener("click", () => {
+            clearInterval(move);
+            heart.remove();
+            heartsClicked++;
+            if (heartsClicked >= 3) {
+              setTimeout(() => showBirthdayMessage(), 500);
+            }
+          });
+        }
+      }
+
+      // Popup muncul setelah game ke-2 selesai
+      function showBirthdayMessage() {
+        createHearts();
+        popup.style.display = "block";
+        message.innerHTML = "";
+      }
+
+      function createHearts() {
+        for (let i = 0; i < 30; i++) {
+          let heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerHTML = "💖";
+          heart.style.left = Math.random() * window.innerWidth + "px";
+          heart.style.top = window.innerHeight + "px";
+          document.body.appendChild(heart);
+
+          let duration = Math.random() * 3 + 2;
+          heart.style.animationDuration = duration + "s";
+
+          setTimeout(() => heart.remove(), duration * 1000);
+        }
+      }
+    </script>
+  </body>
+</html>
